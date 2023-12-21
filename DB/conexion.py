@@ -1,13 +1,14 @@
+from decouple import config
 import psycopg2
 
 #conexon a base de datos
 def obtener_conexion():
 
     conexion = psycopg2.connect(
-        user='postgres',
-        password = 'agus462895',
-        host = 'localhost',
-        port = '5432',
-        database= 'wallet'
+        user= config('USER'),
+        password = config('PASSWORD'),
+        host = config('HOST'),
+        port = config('PORT'),
+        database= config('DATABASE')
     )
     return conexion
