@@ -1,6 +1,5 @@
 from flask import Flask, request
-import asyncio
-import aiohttp
+
 import sett
 import services
 import DB.crud as crud

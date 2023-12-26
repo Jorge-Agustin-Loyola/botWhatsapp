@@ -1,1 +1,1 @@
-web: gunicorn botwhatsapp.wsgi
+web: gunicorn
