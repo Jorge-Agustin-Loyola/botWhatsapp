@@ -1,7 +1,7 @@
 from app import app
 import asyncio
 
-#flaskApp = app
+application = app
 
 if __name__== "__main__":
-    asyncio.run(app.run())
+    asyncio.run(application.run())
