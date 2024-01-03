@@ -1,7 +1,7 @@
-from app import app
+import app
 import asyncio
 
-application = app
+application = app.app
 
 if __name__== "__main__":
     asyncio.run(application.run())
