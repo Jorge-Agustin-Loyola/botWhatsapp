@@ -245,13 +245,13 @@ async def administrar_chatbot(text, number, messageId,name):
     elif "gasto_registrado" in text:
         body = "Gasto registrado exitosamente, ¿quieres realizar otra accion?"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","ver resultado_neto"]
+        options = ["registrar ingreso","registrar gasto","ver resultado neto"]
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed3",
         messageId)
         list.append(replyButtonData)
 
     
-    elif text == "resultado neto":
+    elif text == "ver resultado neto":
         resultado_neto = cont.resultado_neto(number)
         data = text_Message(number,resultado_neto)
         list.append(data)
