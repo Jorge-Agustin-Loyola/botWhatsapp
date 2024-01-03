@@ -1,6 +1,4 @@
-import asyncio
 from flask import Flask, request
-
 import sett
 import services
 import DB.crud as crud
@@ -64,6 +62,5 @@ async def recibir_mensaje():
     except Exception as e:
         return 'no enviado ' + str(e)
 
-
-if __name__== "__main__":
-    asyncio.run(app.run())
+"""if __name__== "__main__":
+    asyncio.run(app.run())"""
