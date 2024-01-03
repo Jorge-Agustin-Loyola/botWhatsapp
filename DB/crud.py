@@ -49,7 +49,7 @@ def insertar_ingreso(telefono,monto_ingreso):
         
         # crear sentencia sql para agregar el ingreso
 
-        sql = f"INSERT INTO ingresos (id_usuario,monto_ingreso,fecha) VALUES ({id_usuario},{monto_ingreso},CURRENT_TIMESTAMP) "
+        sql = f"INSERT INTO ingreso (id_usuario,monto_ingreso,fecha) VALUES ({id_usuario},{monto_ingreso},CURRENT_TIMESTAMP) "
 
 
         # Ejecutamos la query
@@ -89,7 +89,7 @@ def insertar_gasto(telefono,monto_gasto):
         
         # crear sentencia sql para agregar el ingreso
 
-        sql = f"INSERT INTO gastos (id_usuario,monto_gasto,fecha) VALUES ({id_usuario},{monto_gasto},CURRENT_TIMESTAMP) "
+        sql = f"INSERT INTO gasto (id_usuario,monto_gasto,fecha) VALUES ({id_usuario},{monto_gasto},CURRENT_TIMESTAMP) "
 
 
         # Ejecutamos la query
@@ -163,7 +163,7 @@ def seleccionar_ingresos_porID(id):
     try:
         conexion = obtener_conexion()
         cursor = conexion.cursor()
-        sql=f"SELECT * FROM ingresos WHERE id_usuario = CAST({id} AS INTEGER)"
+        sql=f"SELECT * FROM ingreso WHERE id_usuario = CAST({id} AS INTEGER)"
         cursor.execute(sql)
         registro = cursor.fetchall()
         return registro
@@ -174,7 +174,7 @@ def seleccionar_gastos_porID(id):
     try:
         conexion = obtener_conexion()
         cursor = conexion.cursor()
-        sql=f"SELECT * FROM gastos WHERE id_usuario = CAST({id} AS INTEGER)"
+        sql=f"SELECT * FROM gasto WHERE id_usuario = CAST({id} AS INTEGER)"
         cursor.execute(sql)
         registro = cursor.fetchall()
         return registro
