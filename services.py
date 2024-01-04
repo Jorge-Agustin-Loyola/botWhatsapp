@@ -249,9 +249,8 @@ async def administrar_chatbot(text, number, messageId,name):
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed3",
         messageId)
         list.append(replyButtonData)
-
     
-    elif text == "ver resultado neto":
+    elif text=="ver resultado neto":
         resultado_neto = cont.resultado_neto(number)
         data = text_Message(number,resultado_neto)
         list.append(data)
