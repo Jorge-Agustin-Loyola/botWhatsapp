@@ -202,7 +202,7 @@ async def administrar_chatbot(text, number, messageId,name):
     if "hola" in text:
         body = "¡Hola 👋 Bienvendo, ¿Como podemos ayudarte hoy?"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","ver resultado neto"]
+        options = ["registrar ingreso","registrar gasto","resultado neto"]
 
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed1",
         messageId)
@@ -217,10 +217,15 @@ async def administrar_chatbot(text, number, messageId,name):
         sett.gasto = False
         list.append(data)
 
+    elif text=="resultado neto":
+        resultado_neto = cont.resultado_neto(number)
+        data = text_Message(number,resultado_neto)
+        list.append(data)
+
     elif "ingreso_registrado" in text:
         body = "Ingreso registrado exitosamente, ¿quieres realizar otra accion?"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","ver resultado neto"]
+        options = ["registrar ingreso","registrar gasto","resultado neto"]
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed2",
         messageId)
         list.append(replyButtonData)
@@ -245,17 +250,11 @@ async def administrar_chatbot(text, number, messageId,name):
     elif "gasto_registrado" in text:
         body = "Gasto registrado exitosamente, ¿quieres realizar otra accion?"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","ver resultado neto"]
+        options = ["registrar ingreso","registrar gasto","resultado neto"]
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed3",
         messageId)
         list.append(replyButtonData)
-    
-    elif text=="ver resultado neto":
-        resultado_neto = cont.resultado_neto(number)
-        data = text_Message(number,resultado_neto)
-        list.append(data)
-
-        
+     
     else : 
         data = text_Message(number, "Lo siento, no entendi lo que dijiste. ¿Quieres que te ayude con alguna de estas opciones?")
         list.append(data)
