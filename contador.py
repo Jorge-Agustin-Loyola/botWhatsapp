@@ -1,9 +1,9 @@
 import DB.crud as crud
 import json
 
-def pedir_ingresos(telefono):
-    id = crud.buscar_id_por_telefono(telefono)
-    ingresos = crud.seleccionar_ingresos_porID(id)
+async def pedir_ingresos(telefono):
+    id = await crud.buscar_id_por_telefono(telefono)
+    ingresos = await crud.seleccionar_ingresos_porID(id)
     data = ""
     for item in ingresos:
         fecha = str(item[3])
@@ -12,9 +12,9 @@ def pedir_ingresos(telefono):
         data = data + f"{fecha[:10]} - ${monto}\n"
     return data
 
-def pedir_gastos(telefono):
-    id = crud.buscar_id_por_telefono(telefono)
-    gastos = crud.seleccionar_gastos_porID(id)
+async def pedir_gastos(telefono):
+    id = await crud.buscar_id_por_telefono(telefono)
+    gastos = await crud.seleccionar_gastos_porID(id)
     data = ""
     for item in gastos:
         fecha = str(item[3])
@@ -23,10 +23,10 @@ def pedir_gastos(telefono):
         data = data + f"{fecha[:10]} - ${monto}\n"
     return data
 
-def resultado_neto(telefono):
-    id = crud.buscar_id_por_telefono(telefono)
-    ingresos = crud.seleccionar_ingresos_porID(id)
-    gastos = crud.seleccionar_gastos_porID(id)
+async def resultado_neto(telefono):
+    id = await crud.buscar_id_por_telefono(telefono)
+    ingresos = await crud.seleccionar_ingresos_porID(id)
+    gastos = await crud.seleccionar_gastos_porID(id)
     total_gasto = 0
     total_ingreso = 0
     #suma los ingresos del usuario

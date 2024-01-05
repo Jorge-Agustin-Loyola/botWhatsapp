@@ -9,12 +9,12 @@ def bienvenido():
     return 'Hola desde flask'
             
 @app.route('/webhook', methods = ['GET'])    
-def verificar_token():
+async def verificar_token():
     if request.method == 'GET':
 
         try:
-            token = request.args.get('hub.verify_token')
-            challenge = request.args.get('hub.challenge')
+            token = await request.args.get('hub.verify_token')
+            challenge = await request.args.get('hub.challenge')
             if token == sett.token:
              return challenge
             else:
@@ -41,14 +41,14 @@ async def recibir_mensaje():
         
 
         # si el usuario no existe se guarda en la base de datos
-        if crud.verificar_existencia(number):
+        if await crud.verificar_existencia(number):
             if sett.esperando_monto and sett.ingreso:
-                crud.insertar_ingreso(number,text)
+                await crud.insertar_ingreso(number,text)
                 sett.esperando_monto = False
                 await services.administrar_chatbot("ingreso_registrado",number,messageId,name)
                 return 'ingreso registrado'
             elif sett.esperando_monto and sett.gasto:
-                crud.insertar_gasto(number, text)
+                await crud.insertar_gasto(number, text)
                 sett.esperando_monto = False
                 await services.administrar_chatbot("gasto_registrado",number,messageId,name)
                 return 'gasto registrado'
@@ -56,7 +56,7 @@ async def recibir_mensaje():
                 await services.administrar_chatbot(text,number,messageId,name)
                 return 'enviado'
         else:
-            crud.insertar_usuario(number)
+            await crud.insertar_usuario(number)
             return 'Se agrego un contacto'
 
     except Exception as e:

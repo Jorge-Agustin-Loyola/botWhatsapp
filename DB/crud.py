@@ -2,7 +2,7 @@ from DB.conexion import obtener_conexion
 
 
 
-def insertar_usuario(telefono):
+async def insertar_usuario(telefono):
     try:
         #conexion a la base de datos
         conexion = obtener_conexion()
@@ -14,10 +14,10 @@ def insertar_usuario(telefono):
         sql = f"INSERT INTO usuario (telefono) VALUES ({telefono});"
         
         # Ejecutamos la query
-        cursor.execute(sql)
+        await cursor.execute(sql)
 
         # guardamos registros
-        conexion.commit()
+        await conexion.commit()
 
         # registros insertados
         registros = cursor.rowcount
@@ -30,7 +30,7 @@ def insertar_usuario(telefono):
     except Exception as e:
         print(e)
 
-def insertar_ingreso(telefono,monto_ingreso):
+async def insertar_ingreso(telefono,monto_ingreso):
     try:
         #conexion a la base de datos
         conexion = obtener_conexion()
@@ -42,7 +42,7 @@ def insertar_ingreso(telefono,monto_ingreso):
         sql = f"SELECT id FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
         
         # ejecutamos la query y la guardamos en una variable
-        cursor.execute(sql)
+        await cursor.execute(sql)
 
         id_usuario=cursor.fetchone()[0] # cursor.fetchone me devuelve una tupla, tomo el elemento con [0]
         
@@ -57,7 +57,7 @@ def insertar_ingreso(telefono,monto_ingreso):
         
 
         # guardamos registros
-        conexion.commit()
+        await conexion.commit()
 
         # registros insertados
         registros = cursor.rowcount
@@ -70,7 +70,7 @@ def insertar_ingreso(telefono,monto_ingreso):
     except Exception as e:
         print(e)
 
-def insertar_gasto(telefono,monto_gasto):
+async def insertar_gasto(telefono,monto_gasto):
     try:
         #conexion a la base de datos
         conexion = obtener_conexion()
@@ -82,7 +82,7 @@ def insertar_gasto(telefono,monto_gasto):
         sql = f"SELECT id FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
         
         # ejecutamos la query y la guardamos en una variable
-        cursor.execute(sql)
+        await cursor.execute(sql)
 
         id_usuario=cursor.fetchone()[0] # cursor.fetchone me devuelve una tupla, tomo el elemento con [0]
         
@@ -93,11 +93,11 @@ def insertar_gasto(telefono,monto_gasto):
 
 
         # Ejecutamos la query
-        cursor.execute(sql)
+        await cursor.execute(sql)
         
 
         # guardamos registros
-        conexion.commit()
+        await conexion.commit()
 
         # registros insertados
         registros = cursor.rowcount
@@ -110,7 +110,7 @@ def insertar_gasto(telefono,monto_gasto):
     except Exception as e:
         print(e)
 
-def verificar_existencia(telefono):
+async def verificar_existencia(telefono):
     try:
         #conexion a la base de datos
         conexion = obtener_conexion()
@@ -122,10 +122,10 @@ def verificar_existencia(telefono):
         sql = f"SELECT * FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
 
         # Ejecutamos la query
-        cursor.execute(sql)
+        await  cursor.execute(sql)
 
         # guardamos registros
-        conexion.commit()
+        await conexion.commit()
 
         # registros insertados
         registros = cursor.fetchone()
@@ -143,13 +143,17 @@ def verificar_existencia(telefono):
     except Exception as e:
         print(e)
 
-def buscar_id_por_telefono(telefono):
+async def buscar_id_por_telefono(telefono):
     try:
         conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT id FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
-        cursor.execute(sql)
+        await cursor.execute(sql)
         registro = cursor.fetchone()[0]
+
+        cursor.close()
+        conexion.close()
+
         if registro is not None:
             print("Usuario encontrado")
             return registro
@@ -159,30 +163,38 @@ def buscar_id_por_telefono(telefono):
     except Exception as e:
         print ("Error: "+ str(e))
 
-def seleccionar_ingresos_porID(id):
+async def seleccionar_ingresos_porID(id):
     try:
         conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT * FROM ingreso WHERE id_usuario = CAST({id} AS INTEGER)"
-        cursor.execute(sql)
+        await cursor.execute(sql)
         registro = cursor.fetchall()
+        await conexion.commit
+        cursor.close()
+        conexion.close()
         return registro
-    
+
+       
     except Exception as e:
         print ("Error: "+ str(e)) 
-def seleccionar_gastos_porID(id):
+
+async def seleccionar_gastos_porID(id):
     try:
         conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT * FROM gasto WHERE id_usuario = CAST({id} AS INTEGER)"
-        cursor.execute(sql)
+        await cursor.execute(sql)
         registro = cursor.fetchall()
+        await conexion.commit
+        cursor.close()
+        conexion.close()
         return registro
     
     except Exception as e:
         print ("Error: "+ str(e)) 
 
-if __name__== "__main__":
+"""if __name__== "__main__":
     #insertar_usuario("+111222333")
 
     id = buscar_id_por_telefono("542604331853")
@@ -193,4 +205,4 @@ if __name__== "__main__":
         monto = str(item[2])
         #print(fecha[:10]," - $",str(item[2]))
         data = data + f"{fecha[:10]} - ${monto}\n"
-    print(data)
+    print(data)"""
