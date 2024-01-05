@@ -17,7 +17,7 @@ async def insertar_usuario(telefono):
         await cursor.execute(sql)
 
         # guardamos registros
-        await conexion.commit()
+        conexion.commit()
 
         # registros insertados
         registros = cursor.rowcount
@@ -57,7 +57,7 @@ async def insertar_ingreso(telefono,monto_ingreso):
         
 
         # guardamos registros
-        await conexion.commit()
+        conexion.commit()
 
         # registros insertados
         registros = cursor.rowcount
@@ -97,7 +97,7 @@ async def insertar_gasto(telefono,monto_gasto):
         
 
         # guardamos registros
-        await conexion.commit()
+        conexion.commit()
 
         # registros insertados
         registros = cursor.rowcount
@@ -125,7 +125,7 @@ async def verificar_existencia(telefono):
         await  cursor.execute(sql)
 
         # guardamos registros
-        await conexion.commit()
+        conexion.commit()
 
         # registros insertados
         registros = cursor.fetchone()
@@ -170,7 +170,7 @@ async def seleccionar_ingresos_porID(id):
         sql=f"SELECT * FROM ingreso WHERE id_usuario = CAST({id} AS INTEGER)"
         await cursor.execute(sql)
         registro = cursor.fetchall()
-        await conexion.commit
+        conexion.commit
         cursor.close()
         conexion.close()
         return registro
@@ -186,7 +186,7 @@ async def seleccionar_gastos_porID(id):
         sql=f"SELECT * FROM gasto WHERE id_usuario = CAST({id} AS INTEGER)"
         await cursor.execute(sql)
         registro = cursor.fetchall()
-        await conexion.commit
+        conexion.commit
         cursor.close()
         conexion.close()
         return registro
