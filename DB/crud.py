@@ -5,7 +5,7 @@ from DB.conexion import obtener_conexion
 async def insertar_usuario(telefono):
     try:
         #conexion a la base de datos
-        conexion = await obtener_conexion()
+        conexion =  obtener_conexion()
         
         #utlizar cursor
         cursor = conexion.cursor()
@@ -33,7 +33,7 @@ async def insertar_usuario(telefono):
 async def insertar_ingreso(telefono,monto_ingreso):
     try:
         #conexion a la base de datos
-        conexion = await obtener_conexion()
+        conexion = obtener_conexion()
         
         #utlizar cursor
         cursor = conexion.cursor()
@@ -73,7 +73,7 @@ async def insertar_ingreso(telefono,monto_ingreso):
 async def insertar_gasto(telefono,monto_gasto):
     try:
         #conexion a la base de datos
-        conexion = await obtener_conexion()
+        conexion = obtener_conexion()
         
         #utlizar cursor
         cursor = conexion.cursor()
@@ -113,7 +113,7 @@ async def insertar_gasto(telefono,monto_gasto):
 async def verificar_existencia(telefono):
     try:
         #conexion a la base de datos
-        conexion = await obtener_conexion()
+        conexion =  obtener_conexion()
         
         #utlizar cursor
         cursor = conexion.cursor()
@@ -145,7 +145,7 @@ async def verificar_existencia(telefono):
 
 async def buscar_id_por_telefono(telefono):
     try:
-        conexion = await obtener_conexion()
+        conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT id FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
         await cursor.execute(sql)
@@ -165,7 +165,7 @@ async def buscar_id_por_telefono(telefono):
 
 async def seleccionar_ingresos_porID(id):
     try:
-        conexion = await obtener_conexion()
+        conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT * FROM ingreso WHERE id_usuario = CAST({id} AS INTEGER)"
         await cursor.execute(sql)
@@ -181,7 +181,7 @@ async def seleccionar_ingresos_porID(id):
 
 async def seleccionar_gastos_porID(id):
     try:
-        conexion = await obtener_conexion()
+        conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT * FROM gasto WHERE id_usuario = CAST({id} AS INTEGER)"
         await cursor.execute(sql)

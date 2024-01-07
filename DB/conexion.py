@@ -2,9 +2,9 @@ from decouple import config
 import psycopg2
 
 #conexon a base de datos
-async def obtener_conexion():
+def obtener_conexion():
 
-    conexion = await psycopg2.connect(
+    conexion =  psycopg2.connect(
         user= config('USER'),
         password = config('PASSWORD'),
         host = config('HOST'),
