@@ -14,7 +14,7 @@ async def insertar_usuario(telefono):
         sql = f"INSERT INTO usuario (telefono) VALUES ({telefono});"
         
         # Ejecutamos la query
-        await cursor.execute(sql)
+        cursor.execute(sql)
 
         # guardamos registros
         conexion.commit()
@@ -42,7 +42,7 @@ async def insertar_ingreso(telefono,monto_ingreso):
         sql = f"SELECT id FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
         
         # ejecutamos la query y la guardamos en una variable
-        await cursor.execute(sql)
+        cursor.execute(sql)
 
         id_usuario= cursor.fetchone()[0] # cursor.fetchone me devuelve una tupla, tomo el elemento con [0]
         
@@ -53,7 +53,7 @@ async def insertar_ingreso(telefono,monto_ingreso):
 
 
         # Ejecutamos la query
-        await cursor.execute(sql)
+        cursor.execute(sql)
         
 
         # guardamos registros
@@ -82,7 +82,7 @@ async def insertar_gasto(telefono,monto_gasto):
         sql = f"SELECT id FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
         
         # ejecutamos la query y la guardamos en una variable
-        await cursor.execute(sql)
+        cursor.execute(sql)
 
         id_usuario=cursor.fetchone()[0] # cursor.fetchone me devuelve una tupla, tomo el elemento con [0]
         
@@ -93,7 +93,7 @@ async def insertar_gasto(telefono,monto_gasto):
 
 
         # Ejecutamos la query
-        await cursor.execute(sql)
+        cursor.execute(sql)
         
 
         # guardamos registros
@@ -122,7 +122,7 @@ async def verificar_existencia(telefono):
         sql = f"SELECT * FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
 
         # Ejecutamos la query
-        await cursor.execute(sql)
+        cursor.execute(sql)
 
         # guardamos registros
         conexion.commit()
@@ -148,7 +148,7 @@ async def buscar_id_por_telefono(telefono):
         conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT id FROM usuario WHERE telefono = CAST({telefono} AS CHARACTER VARYING)"
-        await cursor.execute(sql)
+        cursor.execute(sql)
         registro = cursor.fetchone()[0]
 
         cursor.close()
@@ -168,7 +168,7 @@ async def seleccionar_ingresos_porID(id):
         conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT * FROM ingreso WHERE id_usuario = CAST({id} AS INTEGER)"
-        await cursor.execute(sql)
+        cursor.execute(sql)
         registro = cursor.fetchall()
         conexion.commit
         cursor.close()
@@ -184,7 +184,7 @@ async def seleccionar_gastos_porID(id):
         conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT * FROM gasto WHERE id_usuario = CAST({id} AS INTEGER)"
-        await cursor.execute(sql)
+        cursor.execute(sql)
         registro = cursor.fetchall()
         conexion.commit
         cursor.close()
