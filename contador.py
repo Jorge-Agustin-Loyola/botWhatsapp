@@ -1,3 +1,4 @@
+import asyncio
 import DB.crud as crud
 import json
 
@@ -25,8 +26,8 @@ async def pedir_gastos(telefono):
 
 async def resultado_neto(telefono):
     id = await crud.buscar_id_por_telefono(telefono)
-    ingresos = await crud.seleccionar_ingresos_porID(id)
-    gastos = await crud.seleccionar_gastos_porID(id)
+    ingresos = await asyncio.gather(crud.seleccionar_ingresos_porID(id))
+    gastos = await asyncio.gather(crud.seleccionar_gastos_porID(id))
     total_gasto = 0
     total_ingreso = 0
     #suma los ingresos del usuario
