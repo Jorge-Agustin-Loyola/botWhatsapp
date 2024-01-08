@@ -1,6 +1,7 @@
 from DB.conexion import obtener_conexion
 
-
+#import asyncio
+#from conexion import obtener_conexion
 
 async def insertar_usuario(telefono):
     try:
@@ -168,6 +169,7 @@ async def seleccionar_ingresos_porID(id):
         conexion = obtener_conexion()
         cursor = conexion.cursor()
         sql=f"SELECT * FROM ingreso WHERE id_usuario = CAST({id} AS INTEGER)"
+        
         cursor.execute(sql)
         registro = cursor.fetchall()
         conexion.commit
@@ -196,13 +198,22 @@ async def seleccionar_gastos_porID(id):
 
 """if __name__== "__main__":
     #insertar_usuario("+111222333")
+    async def __main__():
+        await ej()
+    async def ej():
 
-    id = buscar_id_por_telefono("542604331853")
-    ingresos = seleccionar_ingresos_porID(id)
-    data = ""
-    for item in ingresos:
-        fecha = str(item[3])
-        monto = str(item[2])
-        #print(fecha[:10]," - $",str(item[2]))
-        data = data + f"{fecha[:10]} - ${monto}\n"
-    print(data)"""
+        id = await buscar_id_por_telefono("542604331853")
+        ingresos = await asyncio.gather(seleccionar_ingresos_porID(id))
+        
+        data = f""
+        for lista in ingresos:
+            for tuplas in lista:
+                fecha = str(tuplas[2])
+                monto = str(tuplas[1])
+                #print(fecha[:10]," - $",str(item[2]))
+                data = data + f"{fecha[:10]} - ${monto}\n"
+        print(ingresos)
+        print("")            
+        print(data)
+   
+    asyncio.run(__main__())"""

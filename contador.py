@@ -30,11 +30,13 @@ async def resultado_neto(telefono):
     total_gasto = 0
     total_ingreso = 0
     #suma los ingresos del usuario
-    for item in ingresos:
-        total_ingreso = total_ingreso + int(item[2])  # item[2] devuelve el monto del registro de ingresos 
+    for lista in ingresos:
+        for tupla in lista:
+            total_ingreso = total_ingreso + int(tupla[1])  # item[2] devuelve el monto del registro de ingresos 
     #suma los gastos del usuario
-    for item in gastos:
-        total_gasto = total_gasto + int(item[2])
+    for lista in gastos:
+        for tupla in lista:
+            total_gasto = total_gasto + int(tupla[1]) 
     
     # suma de ganacias y gastos
     resultado_neto = total_ingreso - total_gasto 

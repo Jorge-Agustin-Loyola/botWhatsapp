@@ -217,9 +217,9 @@ async def administrar_chatbot(text, number, messageId,name):
         sett.gasto = False
         list.append(data)
 
-    elif "resultado neto" in text:
+    elif text == "resultado neto":
         resultado_neto = await cont.resultado_neto(number)
-        data = text_Message(number,resultado_neto)
+        data = text_Message(number, resultado_neto)
         list.append(data)
 
     elif "ingreso_registrado" in text:
