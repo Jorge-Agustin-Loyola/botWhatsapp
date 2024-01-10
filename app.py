@@ -9,12 +9,12 @@ def bienvenido():
     return 'Hola desde flask'
             
 @app.route('/webhook', methods = ['GET'])    
-async def verificar_token():
+def verificar_token():
     if request.method == 'GET':
 
         try:
-            token = await request.args.get('hub.verify_token')
-            challenge = await request.args.get('hub.challenge')
+            token =  request.args.get('hub.verify_token')
+            challenge = request.args.get('hub.challenge')
             if token == sett.token:
              return challenge
             else:
