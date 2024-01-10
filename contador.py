@@ -1,6 +1,5 @@
 import asyncio
 import DB.crud as crud
-import json
 
 async def pedir_ingresos(telefono):
     id = await crud.buscar_id_por_telefono(telefono)
@@ -8,8 +7,8 @@ async def pedir_ingresos(telefono):
     data = ""
     for lista in ingresos:
         for tupla in lista:
-            fecha = str(tupla[3])
-            monto = str(tupla[2])
+            fecha = str(tupla[2])
+            monto = str(tupla[1])
             #print(fecha[:10]," - $",str(item[2]))
             data = data + f"{fecha[:10]} - ${monto}\n"
     return data
@@ -20,8 +19,8 @@ async def pedir_gastos(telefono):
     data = ""
     for lista in gastos:
         for tupla in lista:
-            fecha = str(tupla[3])
-            monto = str(tupla[2])
+            fecha = str(tupla[2])
+            monto = str(tupla[1])
             #print(fecha[:10]," - $",str(item[2]))
             data = data + f"{fecha[:10]} - ${monto}\n"
     return data

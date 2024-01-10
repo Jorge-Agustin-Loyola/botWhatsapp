@@ -1,7 +1,6 @@
 import asyncio
 from DB.conexion import obtener_conexion
 
-#import asyncio
 #from conexion import obtener_conexion
 
 async def insertar_usuario(telefono):
@@ -197,7 +196,7 @@ async def seleccionar_gastos_porID(id):
     except Exception as e:
         print ("Error: "+ str(e)) 
 
-"""if __name__== "__main__":
+if __name__== "__main__":
     #insertar_usuario("+111222333")
     async def __main__():
         await ej()
@@ -217,4 +216,4 @@ async def seleccionar_gastos_porID(id):
         print("")            
         print(data)
    
-    asyncio.run(__main__())"""
+    asyncio.run(__main__())
