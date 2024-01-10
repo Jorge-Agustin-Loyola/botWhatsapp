@@ -4,24 +4,26 @@ import json
 
 async def pedir_ingresos(telefono):
     id = await crud.buscar_id_por_telefono(telefono)
-    ingresos = await crud.seleccionar_ingresos_porID(id)
+    ingresos = await asyncio.gather(crud.seleccionar_ingresos_porID(id))
     data = ""
-    for item in ingresos:
-        fecha = str(item[3])
-        monto = str(item[2])
-        #print(fecha[:10]," - $",str(item[2]))
-        data = data + f"{fecha[:10]} - ${monto}\n"
+    for lista in ingresos:
+        for tupla in lista:
+            fecha = str(tupla[3])
+            monto = str(tupla[2])
+            #print(fecha[:10]," - $",str(item[2]))
+            data = data + f"{fecha[:10]} - ${monto}\n"
     return data
 
 async def pedir_gastos(telefono):
     id = await crud.buscar_id_por_telefono(telefono)
-    gastos = await crud.seleccionar_gastos_porID(id)
+    gastos = await asyncio.gather(crud.seleccionar_gastos_porID(id))
     data = ""
-    for item in gastos:
-        fecha = str(item[3])
-        monto = str(item[2])
-        #print(fecha[:10]," - $",str(item[2]))
-        data = data + f"{fecha[:10]} - ${monto}\n"
+    for lista in gastos:
+        for tupla in lista:
+            fecha = str(tupla[3])
+            monto = str(tupla[2])
+            #print(fecha[:10]," - $",str(item[2]))
+            data = data + f"{fecha[:10]} - ${monto}\n"
     return data
 
 async def resultado_neto(telefono):
