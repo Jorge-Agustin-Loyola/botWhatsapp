@@ -38,7 +38,7 @@ async def enviar_Mensaje_whatsapp(data):
                 if response.status == 200:
                     print("Status:", response.status)
                 else:
-                    print(response.status)
+                    print("Error en enviar mensaje:", response.status)
 
         except aiohttp.ClientConnectorError as e:
             print('Connection Error', str(e))
@@ -203,8 +203,7 @@ async def administrar_chatbot(text, number, messageId,name):
         footer = "WALLET"
         options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
 
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed1",
-        messageId)
+        replyButtonData = buttonReply_Message(number, options, body, footer, "sed1", messageId)
         
       
         list.append(replyButtonData)
@@ -214,8 +213,7 @@ async def administrar_chatbot(text, number, messageId,name):
         body = "Ingreso registrado exitosamente, ¿quieres realizar otra accion?"
         footer = "WALLET"
         options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed2",
-        messageId)
+        replyButtonData = buttonReply_Message(number, options, body, footer, "sed2", messageId)
         list.append(replyButtonData)  
 
 
@@ -223,8 +221,7 @@ async def administrar_chatbot(text, number, messageId,name):
         body = "Gasto registrado exitosamente, ¿quieres realizar otra accion?"
         footer = "WALLET"
         options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed3",
-        messageId)
+        replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
         list.append(replyButtonData)  
 
 
@@ -237,8 +234,7 @@ async def administrar_chatbot(text, number, messageId,name):
         footer = "WALLET"
         options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
 
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed4",
-        messageId)
+        replyButtonData = buttonReply_Message(number, options, body, footer, "sed4", messageId)
         list.append(replyButtonData)
 
 
@@ -250,8 +246,7 @@ async def administrar_chatbot(text, number, messageId,name):
         footer = "WALLET"
         options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
 
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed5",
-        messageId)
+        replyButtonData = buttonReply_Message(number, options, body, footer, "sed5", messageId)
         list.append(replyButtonData)   
 
 
@@ -261,8 +256,7 @@ async def administrar_chatbot(text, number, messageId,name):
         footer = "WALLET"
         options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
 
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed6",
-        messageId)
+        replyButtonData = buttonReply_Message(number, options, body, footer, "sed6", messageId)
         list.append(replyButtonData)
     
     
@@ -287,8 +281,7 @@ async def administrar_chatbot(text, number, messageId,name):
         footer = "WALLET"
         options = options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
 
-        replyButtonData = buttonReply_Message(number, options, body, footer, "sed7",
-        messageId)
+        replyButtonData = buttonReply_Message(number, options, body, footer, "sed7", messageId)
         list.append(replyButtonData)
 
     
