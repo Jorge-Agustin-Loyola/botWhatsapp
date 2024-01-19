@@ -2,7 +2,19 @@ from flask import Flask, request
 import sett
 import services
 import DB.crud as crud
+
+
+from decouple import config
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
 app = Flask(__name__)
+#########migraciones############################################
+app.config['SQLALCHEMY_DATABASE_URI'] = config('FULL_URL_DB')
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+################################################################
+
 
 @app.route('/bienvenido', methods = ['GET'])
 def bienvenido():
@@ -43,15 +55,30 @@ async def recibir_mensaje():
         # si el usuario no existe se guarda en la base de datos
         if await crud.verificar_existencia(number):
             if sett.esperando_monto and sett.ingreso:
-                await crud.insertar_ingreso(number,text)
-                sett.esperando_monto = False
-                await services.administrar_chatbot("ingreso_registrado",number,messageId,name)
-                return 'ingreso registrado'
+                if sett.esperando_nota == False:
+                    sett.monto = text
+                    await services.administrar_chatbot("agregar_nota",number,messageId,name)
+                    return 'monto digitado - esperando nota'
+                else:
+                    sett.nota = text
+                
+                    await crud.insertar_ingreso(number,sett.monto,sett.nota)
+                    sett.esperando_monto = False
+                    sett.esperando_nota = False
+                    await services.administrar_chatbot("ingreso_registrado",number,messageId,name)
+                    return 'ingreso registrado'
             elif sett.esperando_monto and sett.gasto:
-                await crud.insertar_gasto(number, text)
-                sett.esperando_monto = False
-                await services.administrar_chatbot("gasto_registrado",number,messageId,name)
-                return 'gasto registrado'
+                if sett.esperando_nota == False:
+                    sett.monto = text
+                    await services.administrar_chatbot("agregar_nota",number,messageId,name)
+                else:
+                    sett.nota = text
+
+                    await crud.insertar_gasto(number,sett.monto,sett.nota)
+                    sett.esperando_monto = False
+                    sett.esperando_nota = False
+                    await services.administrar_chatbot("gasto_registrado",number,messageId,name)
+                    return 'gasto registrado'
             else:
                 await services.administrar_chatbot(text,number,messageId,name)
                 return 'enviado'

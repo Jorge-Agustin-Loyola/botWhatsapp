@@ -31,7 +31,7 @@ async def insertar_usuario(telefono):
     except Exception as e:
         print(e)
 
-async def insertar_ingreso(telefono,monto_ingreso):
+async def insertar_ingreso(telefono,monto_ingreso,nota):
     try:
         #conexion a la base de datos
         conexion = obtener_conexion()
@@ -48,9 +48,10 @@ async def insertar_ingreso(telefono,monto_ingreso):
         id_usuario= cursor.fetchone()[0] # cursor.fetchone me devuelve una tupla, tomo el elemento con [0]
         
         
-        # crear sentencia sql para agregar el ingreso
+        # crear sentencia sql para agregar el ingreso y agregar nota
 
-        sql = f"INSERT INTO ingreso (id_usuario,monto_ingreso,fecha) VALUES ({id_usuario},{monto_ingreso},CURRENT_TIMESTAMP) "
+        str_nota = str(nota)
+        sql = f"INSERT INTO ingreso (id_usuario,monto_ingreso,fecha,nota) VALUES ({id_usuario},{monto_ingreso},CURRENT_TIMESTAMP,'{str_nota}')"
 
 
         # Ejecutamos la query

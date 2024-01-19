@@ -266,6 +266,7 @@ async def administrar_chatbot(text, number, messageId,name):
         sett.ingreso = True
         sett.gasto = False
         list.append(data)
+    
 
 
     elif text=="registrar gasto":
@@ -275,7 +276,10 @@ async def administrar_chatbot(text, number, messageId,name):
         sett.ingreso = False
         list.append(data)
         
-    
+    elif  text=="agregar_nota":
+        data = text_Message(number, "Agregue una nota:")
+        sett.esperando_nota = True
+        list.append(data)
     else : 
         body = "Lo siento, no entendi lo que dijiste. ¿Quieres que te ayude con alguna de estas opciones?"
         footer = "WALLET"

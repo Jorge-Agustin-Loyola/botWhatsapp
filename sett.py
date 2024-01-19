@@ -9,6 +9,9 @@ whatsapp_url = config('WHATSAPP_URL')
 
 
 esperando_monto = False
+esperando_nota = False
 ingreso = False
 gasto = False
 
+monto = 0
+nota = ""
