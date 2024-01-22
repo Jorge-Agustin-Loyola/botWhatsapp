@@ -72,7 +72,7 @@ async def insertar_ingreso(telefono,monto_ingreso,nota):
     except Exception as e:
         print(e)
 
-async def insertar_gasto(telefono,monto_gasto):
+async def insertar_gasto(telefono,monto_gasto,nota):
     try:
         #conexion a la base de datos
         conexion = obtener_conexion()
@@ -91,7 +91,8 @@ async def insertar_gasto(telefono,monto_gasto):
         
         # crear sentencia sql para agregar el ingreso
 
-        sql = f"INSERT INTO gasto (id_usuario,monto_gasto,fecha) VALUES ({id_usuario},{monto_gasto},CURRENT_TIMESTAMP) "
+        str_nota = str(nota)
+        sql = f"INSERT INTO gasto (id_usuario,monto_gasto,fecha,nota) VALUES ({id_usuario},{monto_gasto},CURRENT_TIMESTAMP,'{str_nota}')"
 
 
         # Ejecutamos la query
@@ -208,11 +209,12 @@ if __name__== "__main__":
         
         data = f""
         for lista in ingresos:
-            for tuplas in lista:
-                fecha = str(tuplas[2])
-                monto = str(tuplas[1])
+            for tupla in lista:
+                fecha = str(tupla[2])
+                monto = str(tupla[1])
+                nota = str(tupla[3])
                 #print(fecha[:10]," - $",str(item[2]))
-                data = data + f"{fecha[:10]} - ${monto}\n"
+                data = data + f"{fecha[:10]} - ${monto} - {nota}\n"
         print(ingresos)
         print("")            
         print(data)

@@ -9,8 +9,9 @@ async def pedir_ingresos(telefono):
         for tupla in lista:
             fecha = str(tupla[2])
             monto = str(tupla[1])
+            nota = str(tupla[3])
             #print(fecha[:10]," - $",str(item[2]))
-            data = data + f"{fecha[:10]} - ${monto}\n"
+            data = data + f"{fecha[:10]} - ${monto} - {nota}\n"
     return data
 
 async def pedir_gastos(telefono):
@@ -21,8 +22,9 @@ async def pedir_gastos(telefono):
         for tupla in lista:
             fecha = str(tupla[2])
             monto = str(tupla[1])
+            nota = str(tupla[3])
             #print(fecha[:10]," - $",str(item[2]))
-            data = data + f"{fecha[:10]} - ${monto}\n"
+            data = data + f"{fecha[:10]} - ${monto} - {nota}\n"
     return data
 
 async def resultado_neto(telefono):
@@ -54,3 +56,6 @@ async def resultado_neto(telefono):
 
     return data
 
+
+
+    

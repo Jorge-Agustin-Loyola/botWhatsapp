@@ -44,7 +44,7 @@ async def recibir_mensaje():
         messages = value['messages'][0]
         number = messages['from']
         # corrijo el número
-        #number = number.replace("549","54")
+        number = number.replace("549","54")
         messageId = messages['id']
         contacts = value['contacts'][0]
         name = contacts['profile']['name']
@@ -71,6 +71,7 @@ async def recibir_mensaje():
                 if sett.esperando_nota == False:
                     sett.monto = text
                     await services.administrar_chatbot("agregar_nota",number,messageId,name)
+                    return 'monto digitado - esperando nota'
                 else:
                     sett.nota = text
 
