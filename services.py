@@ -37,14 +37,12 @@ async def enviar_Mensaje_whatsapp(data):
             print("se envia", data)
             print("token:", whatsapp_token)
             print("url: ", whatsapp_url)
-            response = request.post(whatsapp_url,
-                                 headers=headers,
-                                 data=data)
-            #async with session.post(whatsapp_url, data = data, headers = headers) as response:
-            if response.status == 200:
-                print("Status:", response.status)
-            else:
-                print("Error en enviar mensaje:", response.status)
+           
+            async with session.post(whatsapp_url, data = data, headers = headers) as response:
+                if response.status == 200:
+                    print("Status:", response.status)
+                else:
+                    print("Error en enviar mensaje:", response.status)
 
         except aiohttp.ClientConnectorError as e:
             print('Connection Error', str(e))
