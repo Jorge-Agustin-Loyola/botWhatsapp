@@ -34,6 +34,8 @@ async def enviar_Mensaje_whatsapp(data):
     async with aiohttp.ClientSession() as session:
         try:
             print("se envia", data)
+            print("token:", whatsapp_token)
+            print("url: ", whatsapp_url)
             async with session.post(whatsapp_url, data = data, headers = headers) as response:
                 if response.status == 200:
                     print("Status:", response.status)
