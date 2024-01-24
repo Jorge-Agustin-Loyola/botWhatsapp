@@ -27,17 +27,17 @@ def obtener_Mensaje_whatsapp(messages):
 
 async def enviar_Mensaje_whatsapp(data):
 
-   # whatsapp_token = sett.whatsapp_token
-   # whatsapp_url = sett.whatsapp_url
-    headers = {'Content-Type': 'application/json','Authorization':'Bearer ' + 'EAAFqZC1BEXbgBOZBUkg6hlMXomTyloty7HYIrL75KyCnq0QQfklb0b3V3LQmwu0fXsMoZAgjz2uZCWh30huNG8nwMYYn3fY3gHpaSEc2wcr61kQ3xgyU9gRdJZCzVwXW8ypMDMHepG7jykFUA70WBhfDXPkKqZCPnu72QJjphWpvDIm5tyySZBhnyohxocHTZA6d'}
+    whatsapp_token = sett.whatsapp_token
+    whatsapp_url = sett.whatsapp_url
+    headers = {'Authorization':'Bearer ' + whatsapp_token,'Content-Type': 'application/json'}
 
     async with aiohttp.ClientSession() as session:
         try:
             print("se envia", data)
-           # print("token:", whatsapp_token)
-           # print("url: ", whatsapp_url)
+            print("token:", whatsapp_token)
+            print("url: ", whatsapp_url)
            
-            async with session.post('https://graph.facebook.com/v18.0/163826240150209/messages', data = data, headers = headers) as response:
+            async with session.post(whatsapp_url, data = data, headers = headers) as response:
                 if response.status == 200:
                     print("Status:", response.status)
                 else:
