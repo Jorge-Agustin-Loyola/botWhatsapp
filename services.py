@@ -1,6 +1,5 @@
 import time
 import json
-from urllib import request
 import  sett
 import aiohttp
 import contador as cont
@@ -29,14 +28,11 @@ async def enviar_Mensaje_whatsapp(data):
 
     whatsapp_token = sett.whatsapp_token
     whatsapp_url = sett.whatsapp_url
-    headers = {'Authorization':'Bearer ' + whatsapp_token,'Content-Type': 'application/json'}
+    headers = {'Authorization':f'Bearer {whatsapp_token}','Content-Type': 'application/json',}
 
     async with aiohttp.ClientSession() as session:
         try:
             print("se envia", data)
-            print("token:", whatsapp_token)
-            print("url: ", whatsapp_url)
-           
             async with session.post(whatsapp_url, data = data, headers = headers) as response:
                 if response.status == 200:
                     print("Status:", response.status)

@@ -2,9 +2,9 @@ from decouple import config
 
 token = config('TOKEN')#'bigdateros'
 
-whatsapp_token = config('WHATSAPP_TOKEN')
+whatsapp_token = str(config('WHATSAPP_TOKEN'))
 
-whatsapp_url = config('WHATSAPP_URL')
+whatsapp_url = str(config('WHATSAPP_URL'))
 
 
 
