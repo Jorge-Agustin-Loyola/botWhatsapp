@@ -29,7 +29,7 @@ async def enviar_Mensaje_whatsapp(data):
     whatsapp_token = sett.whatsapp_token
     whatsapp_url = sett.whatsapp_url
     headers = {
-        'Authorization': 'Bearer' + whatsapp_token,
+        'Authorization': 'Bearer ' + whatsapp_token,
         'Content-Type': 'application/json',
     }
 
