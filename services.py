@@ -206,7 +206,7 @@ async def administrar_chatbot(text, number, messageId,name):
     if "hola" in text:
         body = "¡Hola 👋 Bienvendo, ¿Como podemos ayudarte hoy?"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
+        options = ["registrar ingreso","registrar gasto","más opciones"]
 
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed1", messageId)
         
@@ -217,7 +217,7 @@ async def administrar_chatbot(text, number, messageId,name):
     elif "ingreso_registrado" in text:
         body = "Ingreso registrado exitosamente, ¿quieres realizar otra accion?"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
+        options = ["registrar ingreso","registrar gasto","más opciones"]
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed2", messageId)
         list.append(replyButtonData)  
 
@@ -225,7 +225,7 @@ async def administrar_chatbot(text, number, messageId,name):
     elif "gasto_registrado" in text:
         body = "Gasto registrado exitosamente, ¿quieres realizar otra accion?"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
+        options = ["registrar ingreso","registrar gasto","más opciones"]
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed3", messageId)
         list.append(replyButtonData)  
 
@@ -237,7 +237,7 @@ async def administrar_chatbot(text, number, messageId,name):
 
         body = f"{resultado_neto}"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
+        options = ["registrar ingreso","registrar gasto","más opciones"]
 
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed4", messageId)
         list.append(replyButtonData)
@@ -249,7 +249,7 @@ async def administrar_chatbot(text, number, messageId,name):
             
         body = f"{ingresos}"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
+        options = ["registrar ingreso","registrar gasto","más opciones"]
 
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed5", messageId)
         list.append(replyButtonData)   
@@ -259,11 +259,19 @@ async def administrar_chatbot(text, number, messageId,name):
         gastos = await cont.pedir_gastos(number)
         body = f"{gastos}"
         footer = "WALLET"
-        options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
+        options = ["registrar ingreso","registrar gasto","más opciones"]
 
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed6", messageId)
         list.append(replyButtonData)
-    
+
+    elif text == "más opciones":
+        
+        body = "Aquí hay mas opciones:"
+        footer = "WALLET"
+        options = ["resultado neto","mostrar ingresos","mostrar gastos"]
+
+        replyButtonData = buttonReply_Message(number,options,body,footer,"sed7",messageId)
+        list.append(replyButtonData)
     
     elif  text=="registrar ingreso":
         data = text_Message(number, "Digite el monto:")
