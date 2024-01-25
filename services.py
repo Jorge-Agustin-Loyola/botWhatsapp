@@ -29,18 +29,21 @@ async def enviar_Mensaje_whatsapp(data):
     whatsapp_token = sett.whatsapp_token
     whatsapp_url = sett.whatsapp_url
     headers = {
-        "Authorization": f"Bearer {whatsapp_token}",
+        "Authorization": "Bearer " + whatsapp_token,
         "Content-Type": "application/json"
     }
 
     async with aiohttp.ClientSession() as session:
         try:
+            print(headers)
             print("se envia", data)
+
             async with session.post(whatsapp_url,headers = headers, data = data) as response:
                 if response.status == 200:
                     print("Status:", response.status)
                 else:
-                    print("Error en enviar mensaje:", response.status)
+                    contenido_error = await response.text()
+                    print(f"Error en enviar mensaje: {response.status}, Contenido{contenido_error}")
 
         except aiohttp.ClientConnectorError as e:
             print('Connection Error', str(e))
