@@ -1,6 +1,6 @@
-import time
+
 import json
-import  sett
+import sett
 import aiohttp
 import contador as cont
 
@@ -26,24 +26,25 @@ def obtener_Mensaje_whatsapp(messages):
 
 async def enviar_Mensaje_whatsapp(data):
 
-    url = 'https://graph.facebook.com/v18.0/172926089235313/messages'  # Reemplaza con tu URL real
-    token = 'EAANOkLlWltABO7tCFVhhPEB2GZA8jRAHBdCw457KBZCBK8v2YfEEPAVX98Lz1OoEm350NQWrwmvHmLAacGvFjqPZA6cu79UpbXcQZBVa81kHbqZBwPk23PzzlhHtgBs4Ivl9gF76WQuyZACbtNAZCSWR8AobVNZCP0mXm2W9GusPZAcSjTGBGS1tVQZB9u7MZCB6Sua6hWXwQBd33M8dS41ZCF8ZD'  # Reemplaza con tu token real
-
+    whatsapp_token = sett.whatsapp_token
+    whatsapp_url = sett.whatsapp_url
     headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-Type': 'application/json',
+        "Authorization": f"Bearer {whatsapp_token}",
+        "Content-Type": "application/json"
     }
 
-
     async with aiohttp.ClientSession() as session:
-        async with session.post(url, headers=headers, data=data) as response:
-            # Verificar si la petición fue exitosa (código de estado 200)
-            if response.status == 200:
-                # Leer el contenido de la respuesta
-                contenido = await response.text()
-                print(f'Respuesta exitosa: {contenido}')
-            else:
-                print(f'Error en la petición. Código de estado: {response.status}')
+        try:
+            print("se envia", data)
+            async with session.post(whatsapp_url,headers = headers, data = data) as response:
+                if response.status == 200:
+                    print("Status:", response.status)
+                else:
+                    print("Error en enviar mensaje:", response.status)
+
+        except aiohttp.ClientConnectorError as e:
+            print('Connection Error', str(e))
+
 def text_Message(number,text):
     data = json.dumps(
             {
