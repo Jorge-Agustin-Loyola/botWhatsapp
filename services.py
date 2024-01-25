@@ -296,7 +296,7 @@ async def administrar_chatbot(text, number, messageId,name):
     else : 
         body = "Lo siento, no entendi lo que dijiste. ¿Quieres que te ayude con alguna de estas opciones?"
         footer = "WALLET"
-        options = options = ["registrar ingreso","registrar gasto","resultado neto","mostrar ingresos","mostrar gastos"]
+        options = ["resultado neto","mostrar ingresos","mostrar gastos"]
 
         replyButtonData = buttonReply_Message(number, options, body, footer, "sed7", messageId)
         list.append(replyButtonData)
