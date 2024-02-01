@@ -85,6 +85,9 @@ async def recibir_mensaje():
                 return 'enviado'
         else:
             await crud.insertar_usuario(number)
+            if await crud.verificar_existencia(number):
+                await services.administrar_chatbot(text,number,messageId,name)
+
             return 'Se agrego un contacto'
 
     except Exception as e:
